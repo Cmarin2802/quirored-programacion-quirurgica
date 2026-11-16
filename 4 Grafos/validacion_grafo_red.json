@@ -1,0 +1,72 @@
+{
+  "version": "HITO2_MODELO_RED_V1",
+  "nodos": 1704,
+  "aristas": 180502,
+  "componentes_debiles": 1,
+  "componente_vial": 9,
+  "por_tipo": {
+    "HOSPITAL": 3,
+    "PUNTO_VIAL": 6,
+    "PROCEDIMIENTO": 2,
+    "FUENTE_REAL": 2,
+    "PERSONAL": 80,
+    "SALA": 16,
+    "EQUIPO": 26,
+    "INSTRUMENTAL": 17,
+    "POSTOP": 52,
+    "CIRUGIA": 1500
+  },
+  "por_relacion": {
+    "CONTIENE_RECURSO": 191,
+    "CONEXION_VIAL": 30,
+    "REQUIERE_PROCEDIMIENTO": 1500,
+    "PROVIENE_DE_FUENTE": 1500,
+    "SOLICITANTE_Y_CANDIDATO": 1500,
+    "HOSPITAL_CANDIDATO": 3000,
+    "CANDIDATO_CIRUJANO": 15000,
+    "CANDIDATO_ANESTESIOLOGO": 21000,
+    "CANDIDATO_INSTRUMENTISTA": 21000,
+    "CANDIDATO_CIRCULANTE": 21000,
+    "CANDIDATO_LIMPIEZA": 10500,
+    "CANDIDATO_NEONATOLOGO": 3750,
+    "CANDIDATO_SALA": 15000,
+    "CANDIDATO_EQUIPO": 21750,
+    "CANDIDATO_INSTRUMENTAL": 12750,
+    "CANDIDATO_POSTOP": 31031
+  },
+  "algunas_aristas": [
+    {
+      "ORIGEN_ID": "H1",
+      "DESTINO_ID": "MED_001",
+      "RELACION": "CONTIENE_RECURSO",
+      "TIEMPO_MIN_SIM": ""
+    },
+    {
+      "ORIGEN_ID": "H1",
+      "DESTINO_ID": "MED_002",
+      "RELACION": "CONTIENE_RECURSO",
+      "TIEMPO_MIN_SIM": ""
+    },
+    {
+      "ORIGEN_ID": "H1",
+      "DESTINO_ID": "MED_003",
+      "RELACION": "CONTIENE_RECURSO",
+      "TIEMPO_MIN_SIM": ""
+    },
+    {
+      "ORIGEN_ID": "H1",
+      "DESTINO_ID": "MED_004",
+      "RELACION": "CONTIENE_RECURSO",
+      "TIEMPO_MIN_SIM": ""
+    }
+  ],
+  "nota": "Las aristas CANDIDATO_ indican compatibilidad estructural, NO disponibilidad temporal ni asignacion definitiva",
+  "ejemplo_ruta_H1_H3_min": 21,
+  "ejemplo_ruta_H1_H3_nodos": [
+    "H1",
+    "VIA_06",
+    "H3"
+  ],
+  "peso_total_arbol_prim_min": 51,
+  "advertencia": "Prim minimiza la suma de la red conectada; Bellman-Ford obtiene un camino minimo de origen a destino. No son equivalentes."
+}

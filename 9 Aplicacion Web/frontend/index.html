@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>Red quirúrgica experimental | Programación</title>
+ <link rel="stylesheet" href="{{ url_for('static',filename='estilos.css') }}">
+</head>
+<body>
+<div class="app-shell">
+ <header class="topbar">
+   <a href="#" class="brand" data-go="cronograma" aria-label="Ir al cronograma">
+      <span class="brand-mark">H+</span>
+      <span class="brand-copy"><strong>Red quirúrgica experimental</strong><small>Clínicas de Lima · Datos simulados</small></span>
+   </a>
+   <nav class="topnav" aria-label="Navegación principal">
+      <button type="button" class="nav-link active" data-view="cronograma">Cronograma quirúrgico</button>
+      <button type="button" class="nav-link" data-view="programar">Programar cirugía</button>
+   </nav>
+   <div class="system-mini"><span class="live-dot" aria-hidden="true"></span><div><strong id="estado-servidor">Conectando…</strong></div></div>
+ </header>
+ <main class="main-content">
+    <section class="context-bar">
+       <div><p class="eyebrow">Modelo académico de coordinación quirúrgica</p><h1 id="page-title">Cronograma quirúrgico</h1><p id="page-subtitle">Programación experimental entre tres clínicas de Lima.</p></div>
+       <div class="sync-box"><span class="sync-label">Última consulta</span><strong id="last-update">--</strong></div>
+    </section>
+    <section id="sin-inicializar" class="surface estado-inicial hidden" aria-live="polite"><h2>Base de datos pendiente</h2><p>Comprueba la conexión con PostgreSQL.</p></section>
+    <p class="micro-note" role="note">Simulación académica: las clínicas son referencias geográficas reales; cirugías, personal y capacidad son datos experimentales. La red vial aún no representa calles reales.</p>
+    <section id="cronograma" class="view active">
+      <div class="schedule-summary kpis">
+         <div><span>Solicitudes registradas</span><strong id="m-casos">--</strong><small>Total de solicitudes</small></div>
+         <div><span>Cirugías programadas</span><strong id="m-programadas">--</strong><small>Con horario asignado</small></div>
+         <div><span>Pendientes</span><strong id="m-pendientes">--</strong><small>Por programar</small></div>
+         <div><span>Derivaciones propuestas</span><strong id="m-propuestas">--</strong><small>Pendientes de confirmación</small></div>
+      </div>
+      <section class="surface schedule-surface">
+         <div class="surface-head schedule-head">
+           <div><h2>Cronograma por quirófano</h2></div>
+           <div class="filter-row"><label>Clínica<select id="f-hospital"><option value="TODOS">Todas las clínicas</option><option value="H1">Clínica Ricardo Palma</option><option value="H2">Clínica Javier Prado</option><option value="H3">Clínica Limatambo</option></select></label><label>Jornada<input id="f-fecha" type="date"></label><button id="f-hoy" class="button secondary" type="button">Primera jornada</button></div>
+         </div>
+         <div class="legend"><span><i class="legend-block ces"></i> Cesárea</span><span><i class="legend-block onc"></i> Oncológica</span><span><i class="legend-block clean"></i> Limpieza</span></div>
+         <div class="timeline-wrap">
+           <div class="timeline-head"><span>Quirófano</span><div class="hours" aria-hidden="true"><span>07:00</span><span>09:00</span><span>11:00</span><span>13:00</span><span>15:00</span><span>17:00</span><span>19:00</span><span>21:00</span></div></div>
+           <div id="timeline-rooms" class="timeline-rooms" aria-live="polite"><div class="loading-text">Cargando salas…</div></div>
+         </div>
+         <div class="list-head"><h3>Detalle de asignaciones</h3><span id="cantidad-dia">--</span></div>
+         <div class="table-scroll"><table class="data-table"><thead><tr><th>Caso</th><th>Procedimiento</th><th>Clínica</th><th>Horario</th><th>Quirófano</th><th>Cirujano</th><th>Prioridad</th></tr></thead><tbody id="tabla-cronograma"><tr><td colspan="7">Cargando…</td></tr></tbody></table></div>
+      </section>
+      <div class="dashboard-grid">
+        <article class="surface dashboard-card" id="panel-eventos">
+          <div class="surface-head"><div class="step-number">A</div><div><h2>Registrar incidencia</h2></div></div>
+          <div class="filter-row stack-mobile"><label>Tipo de incidencia<select id="tipo-evento"><option value="ausencia_cirujano">Ausencia de cirujano</option><option value="falla_equipo">Falla de equipo</option><option value="limpieza_prolongada">Limpieza prolongada</option><option value="postoperatorio_saturado">Postoperatorio sin capacidad</option><option value="urgencia_saturacion">Urgencia y saturación</option><option value="hospital_inoperativo">Hospital inoperativo</option><option value="bloqueo_ruta">Bloqueo vial</option><option value="cancelacion">Cancelación de cirugía</option></select></label></div>
+          <div class="filter-row stack-mobile"><label>Clínica<select id="inc-hospital"><option value="TODOS">Todos</option><option value="H1">Clínica Ricardo Palma</option><option value="H2">Clínica Javier Prado</option><option value="H3">Clínica Limatambo</option></select></label><label>Fecha afectada<input id="inc-fecha" type="date"></label></div>
+          <div class="filter-row stack-mobile"><label class="field-wide">Recurso, jornada o cirugía afectada<select id="inc-objetivo"><option value="">Cargando opciones…</option></select></label></div>
+          <div class="action-row"><button id="paso-evento" class="button primary" type="button">Registrar incidencia</button></div>
+          <p class="micro-note" id="mensaje-evento" role="status" aria-live="polite"></p>
+          <p class="sr-only" id="contador-eventos" aria-live="polite"></p>
+          <div class="list-head"><h3>Historial reciente</h3></div>
+          <div id="lista-eventos" class="event-list">Aún sin eventos.</div>
+        </article>
+        <article class="surface dashboard-card" id="panel-rutas">
+          <div class="surface-head"><div class="step-number">B</div><div><h2>Red de traslado (esquemática)</h2></div></div>
+          <svg id="grafo" class="network-svg" viewBox="0 0 600 340" role="img" aria-label="Grafo vial experimental, todavía sin calles reales"></svg>
+          <p class="micro-note">Los nodos VIA_01…VIA_06 y tiempos de traslado son simulados. La red real será incorporada después.</p>
+          <div class="legend"><span><i class="route-line"></i> Vía habilitada</span><span><i class="route-line broken"></i> Vía bloqueada</span></div>
+          <div class="filter-row route-controls"><label>Origen<select id="origen"><option value="H1">Clínica Ricardo Palma</option><option value="H2">Clínica Javier Prado</option><option value="H3">Clínica Limatambo</option></select></label><label>Destino<select id="destino"><option value="H3">Clínica Limatambo</option><option value="H2">Clínica Javier Prado</option><option value="H1">Clínica Ricardo Palma</option></select></label><button id="calcular-ruta" class="button secondary" type="button">Calcular ruta</button></div>
+          <p id="resultado-ruta" class="notice neutral-notice">Selecciona dos hospitales distintos.</p>
+          <div class="list-head"><h3>Propuestas de derivación</h3></div>
+          <div class="table-scroll"><table class="data-table"><thead><tr><th>Caso</th><th>Destino</th><th>Traslado</th><th>Estado</th></tr></thead><tbody id="tabla-propuestas"><tr><td colspan="4">Sin propuestas.</td></tr></tbody></table></div>
+        </article>
+      </div>
+    </section>
+    <section id="programar" class="view">
+      <div class="program-layout">
+         <article class="surface form-surface">
+            <div class="surface-head"><div class="step-number">01</div><div><h2>Programar solicitud pendiente</h2></div></div>
+            <div class="filter-row input-search"><label>Buscar código de solicitud<input type="search" id="buscar-caso" placeholder="Ej. RED_CES_" maxlength="80"></label><button type="button" id="buscar-btn" class="button secondary">Buscar</button></div>
+            <form id="form-programacion" class="form-grid">
+              <label class="field-wide">Solicitud pendiente<select id="caso-pendiente" required><option value="">Cargando casos…</option></select><small id="total-pendientes-opciones">Selecciona una solicitud para programar.</small></label>
+              <label>Clínica de origen<input id="hospital-caso" type="text" readonly><small>Se evaluarán otros hospitales si no hay atención local oportuna.</small></label>
+              <label>Procedimiento<input id="tipo-caso" type="text" readonly></label>
+              <label>Fecha desde<input id="fecha-programar" type="date" required><small>Respeta la fecha mínima de atención del caso.</small></label>
+              <label>Hora desde<input id="hora-programar" type="time" min="07:00" max="20:30" step="1800" value="08:00" required><small>Se intentará en un horizonte máximo de siete días.</small></label>
+              <div class="form-actions"><button id="btn-programar" class="button primary" type="submit">Programar cirugía</button><button id="recargar-casos" class="button secondary" type="button">Actualizar solicitudes</button></div>
+            </form>
+            <div class="planificador-jornada">
+              <h3>Planificar una jornada</h3>
+              <p class="micro-note">Selecciona cirugías prioritarias para ocupar la capacidad disponible del hospital.</p>
+              <div class="filter-row stack-mobile"><label>Clínica<select id="j-hospital"><option value="H1">Clínica Ricardo Palma</option><option value="H2">Clínica Javier Prado</option><option value="H3">Clínica Limatambo</option></select></label><label>Jornada<input type="date" id="j-fecha"></label><label>Máximo<input type="number" id="j-cantidad" min="1" max="15" value="8"></label></div>
+              <div class="action-row"><button id="btn-jornada" class="button secondary" type="button">Planificar jornada</button></div>
+              <p id="resultado-jornada" class="micro-note" role="status" aria-live="polite"></p>
+            </div>
+         </article>
+         <aside class="surface result-surface">
+            <div class="surface-head compact"><div class="step-number">02</div><div><h2>Resultado de programación</h2></div><span id="proposal-status" class="status neutral">Sin evaluar</span></div>
+            <div id="resultado-vacio" class="empty-state"><div class="empty-icon">H+</div><h3>Esperando una solicitud</h3><p>Selecciona una solicitud para consultar los horarios y recursos disponibles.</p></div>
+            <div id="resultado-ok" class="proposal hidden">
+              <div class="proposal-summary"><div><span>Solicitud</span><strong id="r-caso">—</strong></div><div><span>Jornada / inicio</span><strong id="r-fecha">—</strong></div></div>
+              <div class="assignment-list"><div class="assignment-row"><span class="assignment-type">Hospital y sala</span><div><strong id="r-sala">—</strong><small id="r-hospital">—</small></div></div><div class="assignment-row"><span class="assignment-type">Cirujano</span><div><strong id="r-cirujano">—</strong></div></div><div class="assignment-row"><span class="assignment-type">Anestesiólogo</span><div><strong id="r-anest">—</strong></div></div><div class="assignment-row"><span class="assignment-type">Equipo / instrumental</span><div><strong id="r-equipo">—</strong></div></div></div>
+              <div class="proposal-note"><strong>Programación confirmada</strong><span>La cirugía se incorporó al cronograma quirúrgico.</span><small id="r-metodo"></small><small id="r-derivacion"></small></div>
+              <div class="proposal-actions"><button class="button primary" id="ir-cronograma" type="button">Ver cronograma</button></div>
+            </div>
+            <div id="resultado-pendiente" class="notice warn-notice hidden" role="status"></div>
+         </aside>
+      </div>
+    </section>
+    <footer class="app-disclaimer" aria-label="Equipo de desarrollo"><strong>Grupo 5</strong><span>Nicolás Eduardo Castro Solorza · Sebastián Josué Cochachi Chagua · César Fernando Marín Cueva</span></footer>
+ </main>
+ <div id="toast" class="toast hidden" role="status"></div>
+</div>
+<script src="{{ url_for('static',filename='app.js') }}"></script>
+</body>
+</html>

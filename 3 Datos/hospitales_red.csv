@@ -1,0 +1,4 @@
+﻿HOSPITAL_ID;NOMBRE_VISIBLE;PERFIL;ESTADO_OPERATIVO;SALAS_OBSTETRICAS;SALAS_ONCOLOGICAS;SALAS_FLEXIBLES;TRASLADOS_PERMITIDOS;ORIGEN;NOTAS
+H1;Hospital Central H1;MIXTO;ACTIVO;3;3;2;SI;SIMULADO_RED_2026_20;Se conservan las 8 salas y recursos TB1
+H2;Hospital Materno-Quirurgico H2;PREDOMINIO_OBSTETRICO;ACTIVO;2;1;1;SI;SIMULADO_RED_2026_20;"Establecimiento hipotetico; atencion oncologica condicionada"
+H3;Hospital Oncologico Regional H3;PREDOMINIO_ONCOLOGICO;ACTIVO;1;2;1;SI;SIMULADO_RED_2026_20;"Establecimiento hipotetico; cesareas condicionadas"

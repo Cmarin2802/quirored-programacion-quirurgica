@@ -1,0 +1,30 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.idea/
+.vscode/
+.env
+.env.*
+!.env.example
+*.backup
+*.dump
+*.sqlite3
+*.db
+*.log
+**/Respaldo_Demostracion/
+benchmarks/resultados_locales/
+geo/descargas_temporales/
+# Carpetas y archivos permitidos en la raiz
+/*
+!/.gitignore
+!/README.md
+!/3 Datos/
+!/4 Grafos/
+!/9 Aplicacion Web/
+!/docs/
+!/geo/
+!/benchmarks/
+!/tests/
+
