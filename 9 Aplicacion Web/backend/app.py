@@ -10,6 +10,8 @@ from almacenamiento import (conectar, config, cargar_fuente, cargar_programacion
 from servicio_simulacion import NOMBRES_EVENTOS,simular_paso,motor_imports
 from programacion_manual import solicitudes_pendientes,intentar_pendiente
 from planificacion_jornada import planificar_jornada
+from gestion_derivaciones import generar_propuestas, confirmar_derivacion
+from gestion_incidencias import listar_incidencias_activas, resolver_incidencia
 
 BASE=Path(__file__).resolve().parent
 import sys
@@ -156,6 +158,42 @@ def registrar_incidencia():
         app.logger.exception('Error registrando incidencia')
         return jsonify(error='Error interno; no se confirmó la incidencia'), 500
 
+
+@app.get('/api/incidencias/activas')
+def incidencias_activas():
+    return jsonify(listar_incidencias_activas(BASE))
+
+@app.post('/api/incidencias/resolver')
+def resolver_bloqueo():
+    data = request.get_json(silent=True) or {}
+    try:
+        return jsonify(resolver_incidencia(BASE, data.get('paso')))
+    except (RuntimeError, ValueError, FileNotFoundError) as e:
+        return jsonify(error=str(e)), 409
+    except Exception:
+        app.logger.exception('Error resolviendo incidencia')
+        return jsonify(error='Error interno; no se resolvió la incidencia'), 500
+
+@app.post('/api/derivaciones/proponer')
+def proponer_derivaciones():
+    try:
+        return jsonify(generar_propuestas(BASE))
+    except (RuntimeError, ValueError, FileNotFoundError) as e:
+        return jsonify(error=str(e)), 409
+    except Exception:
+        app.logger.exception('Error generando propuestas de derivación')
+        return jsonify(error='Error interno; no se actualizaron las propuestas'), 500
+
+@app.post('/api/derivaciones/confirmar')
+def confirmar_propuesta():
+    data = request.get_json(silent=True) or {}
+    try:
+        return jsonify(confirmar_derivacion(BASE, data.get('caso_id')))
+    except (RuntimeError, ValueError, FileNotFoundError) as e:
+        return jsonify(error=str(e)), 409
+    except Exception:
+        app.logger.exception('Error confirmando derivación')
+        return jsonify(error='Error interno; no se confirmó la derivación'), 500
 
 @app.get('/api/eventos')
 def eventos():

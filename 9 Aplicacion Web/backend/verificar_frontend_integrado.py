@@ -14,13 +14,14 @@ def main():
         raise SystemExit('Falta inicializar la base de datos PostgreSQL')
     app.testing=True
     c=app.test_client()
-    for url in ('/', '/static/estilos.css','/static/app.js','/api/estado','/api/fechas',
+    for url in ('/', '/static/estilos.css','/static/app.js','/api/sedes','/api/estado','/api/fechas',
                 '/api/pendientes/candidatos','/api/red','/api/eventos','/api/propuestas',
-                '/api/incidencias/opciones?tipo=ausencia_cirujano'):
+                '/api/incidencias/opciones?tipo=ausencia_cirujano', '/api/incidencias/activas'):
         r=c.get(url)
         assert r.status_code==200,(url,r.status_code,r.data[:250])
     html=c.get('/').get_data(as_text=True)
     assert 'Cronograma quirúrgico' in html and 'Programar cirugía' in html
+    assert 'btn-generar-derivaciones' in html and 'lista-incidencias-activas' in html
     fechas=c.get('/api/fechas').get_json()
     assert fechas['primera']
     params=f'/api/programaciones?hospital=H1&fecha={fechas["primera"]}&limite=200'
@@ -31,6 +32,8 @@ def main():
         'caso_id':'ID_INEXISTENTE','fecha':'2026-11-27','hora':'08:00'})
     assert r.status_code==409,('Rechazo esperado',r.status_code)
     assert c.post('/api/incidencias', json={'tipo':'NO_EXISTE'}).status_code == 400
+    assert c.post('/api/incidencias/resolver', json={'paso':-1}).status_code == 409
+    assert c.post('/api/derivaciones/confirmar', json={'caso_id':'ID_INEXISTENTE'}).status_code == 409
     assert c.post('/api/programaciones/jornada',json={'hospital':'H1','fecha':'fecha-invalida','cantidad':8}).status_code == 409
     final=resumen(BASE)
     assert inicial==final,'La verificación modificó la base de datos'

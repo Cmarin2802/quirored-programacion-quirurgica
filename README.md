@@ -1,60 +1,160 @@
-# Red quirúrgica experimental — base inicial para GitHub
+# QuiroRed
 
-**Origen:** `TB2 feedback.zip`, aplicación operativa ubicada en `9 Aplicacion Web`.  
-**Fecha:** 16 de noviembre de 2026.  
-**Estado:** primera actualización visual aprobada por el equipo; no incorpora todavía red vial real, experimento comparativo, Docker ni despliegue público.
+**Sistema académico de programación y coordinación quirúrgica** — Complejidad Algorítmica, UPC, ciclo 2026-20.
 
-## Qué sí cambió
+Aplicación web experimental para organizar cirugías, consultar la programación, registrar y resolver incidencias, proponer traslados entre sedes y evaluar algoritmos de asignación.
 
-- H1 = **Clínica Ricardo Palma**, H2 = **Clínica Javier Prado**, H3 = **Clínica Limatambo**, solo **como nombres y direcciones geográficas de referencia**.
-- Los formularios, cronograma, rutas y resultados muestran nombres más claros, procedentes del catálogo de sedes y de los CSV de recursos simulados.
-- Se agregó `/api/sedes` y `catalogo_sedes.py` sin modificar las tablas de PostgreSQL ni los identificadores H1/H2/H3.
-- Se conserva el parche de CSV para incidencias que ya existía en `TB2 feedback.zip`.
+> **Datos simulados.** Las clínicas Ricardo Palma (H1), Javier Prado (H2) y Limatambo (H3) son referencias geográficas en Lima. Las cirugías, los profesionales, las salas, las capacidades y las jornadas utilizadas en la demostración son datos experimentales; **no** representan agendas reales de dichas instituciones. La red vial mostrada inicialmente es esquemática; Sebastián desarrollará su sustitución por calles verificadas.
 
-**Atención:** las tres instituciones son privadas. El objetivo académico previo decía «hospitales públicos»: deberá ajustarse la redacción de informe y diagramas tras cerrar el alcance. El personal, salas, horarios y cirugías **NO** son datos de esas clínicas; siguen siendo simulados. Los nodos `VIA_01..VIA_06` y tiempos viales actuales son ficticios, pendientes del trabajo de Sebastián.
+## 1. Qué contiene el repositorio
 
-Direcciones consultadas (referencias, no geocodificación de puertas):
-- Ricardo Palma: Av. Javier Prado Este 1066, San Isidro. [Sitio oficial](https://preguntasfrecuentes.crp.com.pe/ubicaci%C3%B3n-de-la-cl%C3%ADnica)
-- Javier Prado: Av. Javier Prado Este 499, San Isidro. [Sitio oficial](https://cjp.pe/contacto/)
-- Limatambo: Av. República de Panamá 3606, San Isidro. [Directorio Rímac 2026](https://imagescdn.rimac.com/blteb037de98628eb08/69a1dee7e0cee65e0e39098c/Red_de_clinicas_afiliadas_2026_V2_%281%29.pdf)
+| Carpeta | Contenido |
+| --- | --- |
+| `9 Aplicacion Web/` | Aplicación Flask, interfaz HTML/CSS/JavaScript, motores de programación y verificadores. |
+| `3 Datos/` | Archivos CSV experimentales de solicitudes, recursos y conexiones. |
+| `4 Grafos/` | Datos del grafo de compatibilidad, generador y notebook. |
+| `docs/` | Instrucciones de trabajo en GitHub y encargos individuales. |
+| `geo/` | Trabajo de Sebastián sobre calles y rutas reales. |
+| `benchmarks/` | Trabajo de Nicolás sobre algoritmos, ocupación y rendimiento. |
+| `tests/` | Pruebas complementarias. |
 
-## Organización
+El repositorio **no** incluye contraseñas, un servidor PostgreSQL ni un respaldo de la base de datos. Los archivos `.backup`, `.env` y otros elementos locales están excluidos por `.gitignore`.
 
-- `9 Aplicacion Web/`: frontend HTML/CSS/JS, backend Flask y motores Python **operativos**. La única copia activa de los motores está dentro de `backend/motores/`.
-- `3 Datos/`: insumos CSV experimentales. Los dos CSV originales limpios más voluminosos quedaron fuera del ZIP GitHub; se conservan en el material histórico de OneDrive.
-- `4 Grafos/`: constructor/notebook histórico y validación; aún puede requerir ajustar rutas de archivos para regeneración.
-- `docs/`: guía de GitHub Desktop y encargos. `geo/` y `benchmarks/`: espacios de trabajo acordados.
-- **No contiene un respaldo de PostgreSQL** ni secretos. El backup histórico de OneDrive debe restaurarse aparte, una vez verificado.
+## 2. Requisitos para ejecutar la aplicación completa
 
-## Ejecutar en Windows (después de restaurar PostgreSQL en una base DE DEMOSTRACIÓN)
+En Windows:
 
-Desde esta carpeta raíz que contiene `9 Aplicacion Web`:
+1. **GitHub Desktop** o Git, para clonar el repositorio.
+2. **Python 3.11 o superior** y `pip` (la aplicación principal ya se comprobó con Python 3.14).
+3. **PostgreSQL y pgAdmin** instalados en su computadora. Para restaurar el respaldo existente, usar herramientas `pg_restore` compatibles con el formato del archivo (se recomienda PostgreSQL 17 o superior).
+4. **El respaldo de demostración** facilitado de forma privada por el responsable del repositorio. No estará publicado en GitHub.
+
+> **¿Todos necesitan PostgreSQL?** Sí, si desean ejecutar **toda la web** y sus acciones de programación. Para trabajar exclusivamente sobre archivos CSV, el grafo vial o scripts aislados, puede no ser necesario. Cada integrante debe tener una base **local e independiente** para no alterar los datos de otro.
+
+## 3. Clonar e instalar Python (una sola vez por computadora)
+
+Clonar desde GitHub Desktop: **File → Clone repository**, elegir `quirored-programacion-quirurgica` y seleccionar una carpeta local.
+
+Abrir PowerShell en la **raíz clonada**, donde se encuentran `3 Datos`, `4 Grafos` y `9 Aplicacion Web`, y ejecutar:
 
 ```powershell
 python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --upgrade pip
 .\.venv\Scripts\python.exe -m pip install -r "9 Aplicacion Web/requirements.txt"
+```
 
-$claveSegura = Read-Host "Contraseña PostgreSQL de hospital_app" -AsSecureString
+Si `python` no está disponible, comprobar la instalación de Python y su incorporación al PATH. Las dependencias actuales de la web son Flask y psycopg, declaradas en `requirements.txt`. Los módulos de análisis geográfico y benchmarking podrán requerir paquetes adicionales que sus responsables deberán documentar en sus respectivas carpetas.
+
+## 4. Preparar la base de datos local (una sola vez por computadora)
+
+**No basta con clonar GitHub:** los CSV del repositorio no reconstruyen automáticamente las tablas y el estado operativo de QuiroRed. Para una instalación completa se debe restaurar una base de prueba.
+
+### 4.1. Obtener el respaldo
+
+Solicitar al responsable del proyecto una **copia de demostración** del respaldo PostgreSQL, enviada por un medio privado (por ejemplo, carpeta compartida de Drive con acceso al equipo).
+
+El respaldo histórico utilizado como referencia se llama:
+
+`hospital_red_pre_eventos.backup`
+
+Su ubicación en el proyecto histórico era `9 Aplicacion Web/Respaldo_Demostracion/`, pero esa carpeta está excluida de GitHub. **El respaldo histórico no tiene por qué coincidir con el estado más reciente de la computadora de César** (522 cirugías programadas); los contadores pueden ser distintos y eso, por sí mismo, no implica un error. No se ha validado todavía una restauración limpia en otra computadora.
+
+### 4.2. Crear usuario y base de datos con pgAdmin
+
+1. Abrir **pgAdmin** y conectarse a su servidor PostgreSQL local.
+2. En **Login/Group Roles**, crear el usuario `hospital_app`, habilitar **Can login** y establecer **una contraseña propia**.
+3. En **Databases**, crear una base llamada `hospital_red` y seleccionar `hospital_app` como **Owner**.
+4. Verificar que PostgreSQL esté escuchando en `127.0.0.1:5432` (la conexión usada por defecto en este proyecto).
+
+La contraseña de cada integrante es independiente; **nunca** enviarla por chat ni subirla a GitHub.
+
+### 4.3. Restaurar el archivo `.backup`
+
+En PowerShell, con el respaldo descargado a una carpeta local, ejecutar (ajustar la ruta del archivo):
+
+```powershell
+pg_restore -h 127.0.0.1 -p 5432 -U hospital_app -d hospital_red --no-owner --no-acl --exit-on-error "C:\RUTA\DEL\RESPALDO\hospital_red_pre_eventos.backup"
+```
+
+El programa solicitará la contraseña de `hospital_app`. Si `pg_restore` no se reconoce como comando, usar su ruta de instalación, por ejemplo:
+
+```powershell
+& "C:\Program Files\PostgreSQL\17\bin\pg_restore.exe" -h 127.0.0.1 -p 5432 -U hospital_app -d hospital_red --no-owner --no-acl --exit-on-error "C:\RUTA\DEL\RESPALDO\hospital_red_pre_eventos.backup"
+```
+
+Sustituir `17` por la versión realmente instalada y `C:\RUTA\DEL\RESPALDO\...` por la ruta real. **Restaurar solo en una base vacía de pruebas**: no hacerlo sobre una base que tenga trabajos que se deseen conservar. Si la herramienta informa una versión de archivo no compatible, usar una versión más reciente de `pg_restore`.
+
+## 5. Conectar QuiroRed a PostgreSQL (cada terminal nueva)
+
+Desde PowerShell, introducir la contraseña **sin mostrarla en pantalla** y crear la variable de entorno de esta sesión:
+
+```powershell
+$claveSegura = Read-Host "Contraseña local de hospital_app" -AsSecureString
 $clave = [System.Net.NetworkCredential]::new("hospital_app", $claveSegura).Password
-$env:DATABASE_URL = "postgresql://hospital_app:$([uri]::EscapeDataString($clave))@127.0.0.1:5432/hospital_red_demo"
+$env:DATABASE_URL = "postgresql://hospital_app:$([uri]::EscapeDataString($clave))@127.0.0.1:5432/hospital_red"
 Remove-Variable clave, claveSegura
+```
 
+**Importante:** `DATABASE_URL` existe únicamente en **esa terminal**. Si se abre otra terminal de PowerShell, será necesario repetir este paso. Si se escribe una contraseña incorrecta aparecerá `password authentication failed`; **no hace falta detener Flask** para resolverlo.
+
+No pegar la contraseña directamente en un archivo de código ni subir un `.env` con secretos.
+
+## 6. Verificar e iniciar QuiroRed
+
+Desde la **raíz del repositorio** y en la misma terminal que tiene `DATABASE_URL`:
+
+```powershell
 .\.venv\Scripts\python.exe "9 Aplicacion Web/backend/verificar_backend.py"
-.\.venv\Scripts\python.exe "9 Aplicacion Web/backend/verificar_algoritmos_integrados.py"
-.\.venv\Scripts\python.exe "9 Aplicacion Web/backend/verificar_interhospitalario.py"
 .\.venv\Scripts\python.exe "9 Aplicacion Web/backend/verificar_frontend_integrado.py"
 .\.venv\Scripts\python.exe "9 Aplicacion Web/backend/app.py"
 ```
 
-Abre http://127.0.0.1:5000. **No se puede inicializar automáticamente la BD solo con este ZIP**; necesita backup restaurado y usuario de PostgreSQL con permisos suficientes. No ejecutar incidencias o programaciones sobre la base principal del equipo.
+Abrir **http://127.0.0.1:5000** en el navegador. Detener el servidor con **Ctrl + C**. Para actualizar los archivos JavaScript/CSS después de un cambio, recargar con **Ctrl + F5**.
 
-## Para publicar y trabajar en equipo
+Los verificadores deben indicar, respectivamente:
 
-1. Lee `docs/GUIA_GITHUB_DESKTOP.md`.
-2. Crea un repositorio **privado** con GitHub Desktop y publica la carpeta completa, sin colocarla dentro del antiguo directorio de OneDrive.
-3. Invita a Nicolás y Sebastián. Ellos trabajarán por ramas y Pull Requests, con revisión de César antes de integrar.
-4. Lee `docs/ENCARGO_NICOLAS.md` y `docs/ENCARGO_SEBASTIAN.md`. **Sebastián solo realiza red vial; Docker se prepara al final**.
+- `VERIFICACION_POSTGRESQL_CORRECTA` y `errores_solapamiento: 0`.
+- `FRONTEND_INTEGRADO_CORRECTO`.
 
-## Verificación disponible
+En la computadora del integrador se verificaron **1,500 casos, 522 programados, 978 pendientes y cero solapamientos** después de las pruebas funcionales. **No se exigen esos mismos contadores** al restaurar un respaldo histórico: las cantidades dependen del estado de cada base local. El verificador de integridad sí supone una base experimental de 1,500 casos y el grafo de compatibilidad original completo.
 
-Pruebas estáticas Python/JS y tests del catálogo se ejecutaron sobre esta versión. **No se comprobó aquí una ejecución completa contra la instancia PostgreSQL de tu computadora**, ni una restauración del backup; esa prueba será el próximo paso antes de considerar `main` funcionalmente validada.
+### Problemas frecuentes
+
+| Mensaje o síntoma | Qué revisar |
+| --- | --- |
+| `can't open file ... backend/...` | Estás en la raíz incorrecta. Si estás en la raíz del repositorio, agrega `9 Aplicacion Web/` a la ruta, como en los comandos anteriores. |
+| `password authentication failed` | Usuario o contraseña de PostgreSQL incorrectos. Repetir el paso 5 con la clave local correcta. |
+| `Falta DATABASE_URL` | Configurar la variable en **esa misma** terminal. |
+| `PostgreSQL no contiene los datos iniciales` | La base no fue restaurada, o está apuntando a una base distinta. |
+| `pg_restore: command not found` o no se reconoce | Ejecutar la ruta completa de `pg_restore.exe`, dentro de `C:\Program Files\PostgreSQL\<versión>\bin\`. |
+| La página no abre | Verificar que Flask siga ejecutándose, que el puerto 5000 esté disponible y que la terminal no muestre errores. |
+| Aparecen cifras distintas a las del compañero | Cada uno tiene su propia base de pruebas. No se sincronizan los datos de PostgreSQL con GitHub. |
+
+## 7. Organización del trabajo del equipo
+
+- **César — integración:** aplicación principal, interfaz, pruebas de asignación, derivaciones e incidencias, revisión de Pull Requests y entrega final.
+- **Nicolás — algoritmos:** revisar `docs/ENCARGO_NICOLAS.md`, trabajar en la rama `feature/benchmarks-optimizacion`, documentar el algoritmo base y la comparación experimental. **No utilizar la base principal de César para los benchmarks.**
+- **Sebastián — red vial:** revisar `docs/ENCARGO_SEBASTIAN.md`, trabajar en la rama `feature/red-vial-real`, producir los datos y pruebas geográficas. No sobrescribir la red operativa hasta la integración coordinada.
+
+Cada integrante crea su **rama**, hace commits y sube sus cambios con **Push**; después abre un **Pull Request** para revisión antes de integrar en `main`. El repositorio se mantendrá **privado** hasta que el equipo decida lo contrario.
+
+**Pendientes para la integración final:** porcentaje de ocupación y resultados comparativos de Nicolás; calles/rutas reales de Sebastián; adaptación final de interfaz; Docker, URL pública, informe, anexos y evidencias. No presentar los indicadores como medidos hasta ejecutar los experimentos.
+
+## 8. Para el responsable: preparar una copia de demostración actualizada
+
+Si los compañeros necesitan **exactamente el mismo estado de demostración** (en lugar del respaldo histórico), el responsable puede exportar la base **después de concluir las pruebas** con la herramienta `pg_dump` de su instalación PostgreSQL:
+
+```powershell
+pg_dump -h 127.0.0.1 -p 5432 -U hospital_app -d hospital_red -F c -f "hospital_red_equipo.backup"
+```
+
+Si `pg_dump` no se reconoce, utilizar la ruta completa de `pg_dump.exe` dentro de la carpeta `bin` de PostgreSQL. Ejecutar desde una carpeta de trabajo **fuera de GitHub**. Enviar el archivo resultante por un enlace privado a los compañeros; **nunca** hacer commit del respaldo. Esta copia incluye el estado que existía al exportar y puede cambiar los recuentos respecto al respaldo histórico. Para una evaluación justa, Nicolás debe documentar el estado inicial y ejecutar sus pruebas en su propia copia, sin alterar la base del equipo.
+
+## 9. Seguridad y reproducibilidad
+
+- No subir `.env`, claves, `.backup`, `.dump`, bases de datos locales ni historiales privados.
+- Usar **datos experimentales** para todas las demostraciones. Las clínicas nombradas no aportaron sus agendas reales.
+- Antes de cambiar código compartido, actualizar la rama con los cambios del repositorio y coordinar modificaciones sobre los archivos centrales.
+- Guardar capturas, resultados y pasos de ejecución reproducibles de las pruebas.
+
+> **Estado de esta guía:** comandos y rutas contrastados con los archivos del proyecto. La aplicación principal fue comprobada contra PostgreSQL en la computadora de César; **la restauración del respaldo en una segunda computadora todavía está pendiente de prueba**. Una vez probada, documentar cualquier ajuste requerido.
