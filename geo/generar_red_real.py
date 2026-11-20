@@ -232,7 +232,19 @@ def generar_mapa_folium(df_hosp: pd.DataFrame, df_puntos: pd.DataFrame, df_conex
     for _, r in df_puntos.iterrows():
         coords_nodos[r["NODO_VIAL_ID"]] = (r["LATITUD"], r["LONGITUD"])
 
-    mapa = folium.Map(location=[-12.0950, -77.0225], zoom_start=15, tiles="OpenStreetMap")
+    mapa = folium.Map(location=[-12.0955, -77.0228], zoom_start=15, tiles=None)
+    folium.TileLayer(
+        tiles="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+        attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        name="Callejero San Isidro (OSM / CARTO)",
+        control=True,
+    ).add_to(mapa)
+    folium.TileLayer(
+        tiles="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+        attr='Tiles &copy; Esri &mdash; Source: Esri, OpenStreetMap contributors',
+        name="Mapa Vial Detallado (Esri / OSM)",
+        control=True,
+    ).add_to(mapa)
 
     for _, r in df_conex.iterrows():
         p1 = coords_nodos.get(r["ORIGEN_NODO"])
