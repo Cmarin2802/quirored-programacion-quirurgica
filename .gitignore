@@ -24,6 +24,7 @@ geo/descargas_temporales/
 !/.dockerignore
 !/3 Datos/
 !/4 Grafos/
+!/5 Diagramas/
 !/9 Aplicacion Web/
 !/docs/
 !/geo/
