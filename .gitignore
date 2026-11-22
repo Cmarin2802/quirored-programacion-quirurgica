@@ -20,6 +20,8 @@ geo/descargas_temporales/
 /*
 !/.gitignore
 !/README.md
+!/Dockerfile
+!/.dockerignore
 !/3 Datos/
 !/4 Grafos/
 !/9 Aplicacion Web/
