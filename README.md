@@ -160,4 +160,4 @@ La API de solo lectura permite consultar el resumen en: https://quirored-web-pro
 
 La entrega académica acompaña el código con el informe y los anexos en Word/PDF. Los diagramas de casos de uso, clases, despliegue y arquitectura se documentan en los anexos. Las fuentes de datos y sus transformaciones están en `3 Datos/`, los resultados del grafo en `4 Grafos/` y los experimentos en `benchmarks/`.
 
-Para ejecutar una copia local con el mismo estado de referencia, incluir un respaldo **autorizado y sin datos sensibles no destinados a la entrega**, o proporcionarlo al evaluador por un canal privado. No distribuir contraseñas, tokens ni archivos `.env` de producción.
+Para ejecutar una copia local con el mismo estado de referencia, se adjuntó en el zip de entrega dle trabajo el backup necesario de postgresql.
