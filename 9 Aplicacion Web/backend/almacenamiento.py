@@ -43,6 +43,11 @@ def instalada(con):
 
 
 def cargar_fuente(con, archivo: str):
+    # Carreteras reales desde geo/, sin sobrescribir las fuentes históricas de la BD.
+    from red_operativa import cargar_fuente_red
+    calles = cargar_fuente_red(archivo)
+    if calles is not None:
+        return calles
     return [r['fila_json'] for r in con.execute(
         'SELECT fila_json FROM fuente_registro WHERE archivo = %s ORDER BY ordinal', (archivo,))]
 

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QuiroRed | Área técnica</title>
+<style>
+:root{--bg:#f3f4f6;--paper:#fff;--ink:#1f2937;--sub:#5f6876;--border:#dbe0e6;--dark:#303946;--fcfs:#6b7280;--greedy:#374151}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif;font-size:14px;line-height:1.5}
+header{background:#222b35;color:#fff;min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:13px max(22px,calc((100vw - 1190px)/2));}
+header strong{font-size:18px;letter-spacing:-.02em}header small{display:block;color:#c6ccd5;font-size:11px;margin-top:2px}header a{color:#e4e7eb;text-decoration:none;font-weight:600;font-size:13px}
+header a:hover{text-decoration:underline}main{max-width:1190px;margin:0 auto;padding:30px 20px 55px}h1{font-size:30px;letter-spacing:-.035em;margin:0 0 6px}h2{font-size:19px;margin:0}h3{font-size:15px;margin:0 0 8px}p{margin:6px 0 10px}.sub{color:var(--sub)}
+.eyebrow{color:#596273;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.surface{background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:22px;margin-top:19px;box-shadow:0 2px 8px rgba(16,24,40,.025)}
+label{display:block;font-weight:700;font-size:13px;margin-bottom:7px}input,select{width:100%;background:white;border:1px solid #cbd3dc;color:var(--ink);border-radius:6px;min-height:44px;padding:8px 11px;font:inherit}
+button{border:1px solid #303946;border-radius:6px;background:#303946;color:#fff;font:inherit;font-weight:700;padding:11px 17px;cursor:pointer}button:hover{background:#465262}button.outline{background:white;color:#303946;border-color:#bdc6d1}button.outline:hover{background:#eef0f4}
+.login{max-width:420px;margin:65px auto 0;padding:30px}.login h1{font-size:25px}.login input{margin-bottom:14px}.error{color:#9f2230;font-weight:700}.muted-note{background:#f5f6f8;border:1px solid #e0e3e8;padding:12px 14px;border-radius:6px;color:#525c69;font-size:12px}
+.toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}.toolbar label{min-width:210px}.logout{border:0;background:transparent;color:#4d5664;padding:7px;font-size:12px}.logout:hover{background:#eceef2}
+.tabs{display:flex;flex-wrap:wrap;border-bottom:1px solid #d9dfe5;margin-top:24px;gap:7px}.tab{border:0;border-radius:6px 6px 0 0;padding:12px 20px;background:transparent;color:#5a6574;font-weight:700}.tab.active{background:#fff;color:#222b35;border:1px solid #d9dfe5;border-bottom:1px solid white;margin-bottom:-1px}
+.panel[hidden],.hidden{display:none!important}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-top:18px}.metric{background:#fff;border:1px solid var(--border);border-radius:8px;padding:15px}.metric span{font-size:12px;color:#5d6674;display:block}.metric strong{display:block;font-size:25px;margin:4px 0}.metric small{color:var(--sub)}
+.table-wrap{overflow-x:auto}.table{width:100%;border-collapse:collapse;min-width:720px;font-size:12.5px}.table th{background:#f1f3f5;text-align:left;color:#56606c;font-size:11px;text-transform:uppercase;letter-spacing:.04em}.table th,.table td{padding:11px 12px;border-bottom:1px solid #e6e9ed;vertical-align:top}.table td strong{font-weight:700}
+.bars{display:grid;gap:14px;margin-top:16px}.bar-row{display:grid;grid-template-columns:130px minmax(0,1fr) 90px;align-items:center;gap:12px}.bar-track{background:#e7eaf0;border-radius:4px;height:19px;overflow:hidden}.bar-fill{background:#626c79;height:100%;width:0;transition:width .25s}.bar-row.greedy .bar-fill{background:#303946}.bar-row strong{text-align:right;font-variant-numeric:tabular-nums}.small{font-size:12px;color:var(--sub)}.callout{border-left:3px solid #758293;padding:12px;background:#f4f5f7;margin-top:16px}
+.status{font-size:11px;font-weight:700;color:#5c6775;background:#f0f2f4;display:inline-block;padding:3px 7px;border-radius:4px}.action-link{font-size:12px;color:#304050}.table select{min-width:120px}
+/* Panel individual: una comparación de cada algoritmo consigo mismo entre tamaños de entrada. */
+.filtros-detalle{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap}.filtros-detalle label{min-width:180px;margin:0}.filtros-detalle select{margin-top:6px}
+.panel-head{margin-bottom:18px}.resumen-algoritmo{background:#f5f6f8;border:1px solid #e2e6ec;border-radius:8px;padding:14px 16px;display:grid;grid-template-columns:1.4fr 1fr;gap:16px}
+.resumen-algoritmo strong{display:block;font-size:12px;color:#4e5967;margin-bottom:3px}.resumen-algoritmo p{margin:0;font-size:13px}
+.graficos-detalle{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:17px}.grafico-card{border:1px solid var(--border);border-radius:8px;padding:17px;min-width:0}.grafico-card .small{margin:2px 0 13px}
+.mini-bars{display:grid;gap:14px}.mini-bar-row{display:grid;grid-template-columns:58px minmax(0,1fr) 90px;gap:10px;align-items:center;font-size:12px}.mini-bar-row .bar-track{height:16px}.mini-bar-row .bar-fill{background:#788392}.mini-bar-row.selected .bar-fill{background:#303946}.mini-bar-row.selected .bar-label{font-weight:750}.mini-bar-row .valor{text-align:right;font-variant-numeric:tabular-nums;font-weight:650;white-space:nowrap}.mini-bar-row .bar-track{min-width:0}
+.titulo-tabla{margin:24px 0 10px}.table tbody tr.seleccionado{background:#f0f3f7}.table tbody tr.seleccionado td:first-child{font-weight:750}
+@media(max-width:850px){.graficos-detalle{grid-template-columns:1fr}.resumen-algoritmo{grid-template-columns:1fr}}
+@media(max-width:540px){.filtros-detalle{width:100%;display:grid;grid-template-columns:1fr 1fr}.filtros-detalle label{min-width:0}.mini-bar-row{grid-template-columns:50px minmax(0,1fr) 72px;gap:7px}}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.bar-row{grid-template-columns:85px minmax(0,1fr) 65px}h1{font-size:25px}}
+@media(max-width:540px){.grid{grid-template-columns:1fr}.bar-row{grid-template-columns:72px minmax(0,1fr) 55px;gap:6px}main{padding:20px 12px}header{padding:12px}.surface{padding:15px}.tabs{display:grid;grid-template-columns:1fr 1fr}.tab{padding:10px 8px}}
+</style>
+</head>
+<body>
+<header><div><strong>QuiroRed · Área técnica</strong><small>Evaluación y rendimiento algorítmico</small></div><a href="/">Volver a gestión quirúrgica</a></header>
+<main>
+{% if not configurado %}
+<section class="surface login"><h1>Acceso no configurado</h1><p class="sub">La gestión quirúrgica sigue disponible. Para habilitar este panel, configura las variables de entorno indicadas en las instrucciones.</p><a href="/">Volver a QuiroRed</a></section>
+{% elif not autorizado %}
+<section class="surface login"><p class="eyebrow">Acceso restringido</p><h1>Área técnica</h1><p class="sub">Análisis de algoritmos y resultados de pruebas reproducibles.</p>
+<form action="/tecnica/acceso" method="post"><label for="clave">Contraseña</label><input name="clave" id="clave" type="password" required autocomplete="current-password" maxlength="256"><button type="submit">Ingresar</button></form>
+{% if error %}<p class="error" role="alert">Contraseña incorrecta.</p>{% endif %}
+<p class="small">Este acceso es independiente de las operaciones de programación quirúrgica.</p></section>
+{% else %}
+<div class="toolbar"><div><p class="eyebrow">Módulo de evaluación</p><h1>Análisis algorítmico</h1><p class="sub">Resultados experimentales consultados sin modificar la agenda quirúrgica.</p></div><form method="post" action="/tecnica/salir"><button class="outline" type="submit">Cerrar sesión</button></form></div>
+<div class="tabs" role="tablist" aria-label="Tipo de análisis"><button class="tab active" type="button" data-panel="comparar" role="tab" aria-selected="true">FCFS vs. Greedy</button><button class="tab" type="button" data-panel="algoritmos" role="tab" aria-selected="false">Ocho algoritmos</button></div>
+<section id="comparar" class="panel" aria-labelledby="comparar-titulo">
+ <div class="surface"><div class="toolbar"><div><h2 id="comparar-titulo">Comparación de estrategias</h2><p class="sub">Los mismos casos y recursos, con semilla fija y restricciones equivalentes.</p></div><label>Tamaño de muestra<select id="tecnica-n" aria-label="Cantidad de solicitudes"><option value="100">100 solicitudes</option><option value="500">500 solicitudes</option><option value="1000">1.000 solicitudes</option><option value="1500">1.500 solicitudes</option></select></label></div>
+ <div id="metricas" class="grid" aria-live="polite"></div>
+ <h3 style="margin-top:24px">Cirugías programadas</h3><div id="barras" class="bars"></div>
+ <div class="table-wrap" style="margin-top:20px"><table class="table"><thead><tr><th>Estrategia</th><th>Programadas</th><th>Pendientes</th><th>Tiempo prom. (s)</th><th>Memoria Python pico (MB)</th><th>Ocupación con limpieza</th><th>Solapamientos</th></tr></thead><tbody id="detalle-fcfs"></tbody></table></div>
+ </div>
+</section>
+<section id="algoritmos" class="panel" hidden>
+ <div class="surface"><div><h2>Algoritmos implementados</h2><p class="sub">Qué hace cada algoritmo en QuiroRed y qué evidencia experimental existe para él.</p></div>
+ <div class="table-wrap"><table class="table"><thead><tr><th>Algoritmo</th><th>Uso en la aplicación</th><th>Complejidad teórica</th><th>Última medición individual</th></tr></thead><tbody id="tabla-algoritmos"></tbody></table></div>
+ </div>
+ <div class="surface">
+  <div class="toolbar panel-head">
+   <div><h2>Explorar rendimiento</h2><p class="sub">Mediciones por algoritmo y tamaño de entrada.</p></div>
+   <div class="filtros-detalle"><label for="detalle-algoritmo">Algoritmo<select id="detalle-algoritmo" aria-label="Seleccionar algoritmo"></select></label><label for="detalle-n">Tamaño de entrada<select id="detalle-n" aria-label="Seleccionar tamaño de entrada"></select></label></div>
+  </div>
+  <div class="resumen-algoritmo" id="resumen-algoritmo" aria-live="polite"></div>
+  <div id="metricas-algoritmo" class="grid" aria-live="polite"></div>
+  <div class="graficos-detalle">
+   <section class="grafico-card"><h3>Crecimiento del tiempo</h3><p class="small" id="tiempo-unidad"></p><div id="barras-tiempo" class="mini-bars"></div></section>
+   <section class="grafico-card"><h3>Memoria Python pico</h3><p class="small" id="memoria-unidad"></p><div id="barras-memoria" class="mini-bars"></div></section>
+  </div>
+  <h3 class="titulo-tabla">Resultados por tamaño de entrada</h3>
+  <div class="table-wrap"><table class="table" id="tabla-detalle"><thead><tr><th>Tamaño</th><th>Entrada</th><th id="col-tiempo">Tiempo medio</th><th id="col-memoria">Memoria Python pico</th><th>RAM del proceso (MB)</th><th>Repeticiones</th></tr></thead><tbody id="detalle-algoritmos"><tr><td colspan="6">Cargando mediciones...</td></tr></tbody></table></div>
+ </div>
+</section>
+<div id="error-datos" class="surface error" hidden role="alert"></div>
+<script src="{{ url_for('static', filename='area_tecnica.js') }}" defer></script>
+{% endif %}
+</main>
+</body>
+</html>

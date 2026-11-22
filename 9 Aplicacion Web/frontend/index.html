@@ -4,17 +4,24 @@
  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
  <title>QuiroRed | Programación quirúrgica</title>
  <link rel="stylesheet" href="{{ url_for('static',filename='estilos.css') }}">
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+ .nav-tech-link { display: flex; align-items: center; justify-content: center; padding: 0 20px; border-bottom: 4px solid transparent; text-decoration: none; font-size: 13px; font-weight: 700; color: #4b5563; background: #f4f5f7; }
+ .nav-tech-link:hover, .nav-tech-link:focus-visible { color: #1f2937; background: #e5e7eb; }
+ @media(max-width:760px) { .nav-tech-link { flex: 1; min-height: 52px; padding: 0 8px; } }
+</style>
 </head>
 <body>
 <div class="app-shell">
  <header class="topbar">
    <a href="#" class="brand" data-go="cronograma" aria-label="Ir al cronograma">
       <span class="brand-mark">H+</span>
-      <span class="brand-copy"><strong>QuiroRed</strong><small>Clínicas de Lima · Datos simulados</small></span>
+      <span class="brand-copy"><strong>QuiroRed</strong><small>Gestión quirúrgica · Lima</small></span>
    </a>
    <nav class="topnav" aria-label="Navegación principal">
       <button type="button" class="nav-link active" data-view="cronograma">Cronograma quirúrgico</button>
       <button type="button" class="nav-link" data-view="programar">Programar cirugía</button>
+      <a class="nav-tech-link" href="/tecnica" title="Acceso al área técnica">Área técnica</a>
    </nav>
    <div class="system-mini"><span class="live-dot" aria-hidden="true"></span><div><strong id="estado-servidor">Conectando…</strong></div></div>
  </header>
@@ -24,7 +31,6 @@
        <div class="sync-box"><span class="sync-label">Última consulta</span><strong id="last-update">--</strong></div>
     </section>
     <section id="sin-inicializar" class="surface estado-inicial hidden" aria-live="polite"><h2>Información no disponible</h2><p>No se pudieron cargar los datos. Comprueba que la aplicación esté funcionando.</p></section>
-    <p class="micro-note" role="note">Simulación académica: las clínicas son referencias geográficas reales; cirugías, personal y capacidad son datos experimentales. La red vial aún no representa calles reales.</p>
     <section id="cronograma" class="view active">
       <div class="schedule-summary kpis">
          <div><span>Solicitudes registradas</span><strong id="m-casos">--</strong><small>Total de solicitudes</small></div>
@@ -49,8 +55,17 @@
         <article class="surface dashboard-card" id="panel-eventos">
           <div class="surface-head"><div class="step-number">A</div><div><h2>Registrar incidencia</h2></div></div>
           <div class="filter-row stack-mobile"><label>Tipo de incidencia<select id="tipo-evento"><option value="ausencia_cirujano">Ausencia de cirujano</option><option value="falla_equipo">Falla de equipo</option><option value="limpieza_prolongada">Limpieza prolongada</option><option value="postoperatorio_saturado">Postoperatorio sin capacidad</option><option value="urgencia_saturacion">Urgencia y saturación</option><option value="hospital_inoperativo">Hospital inoperativo</option><option value="bloqueo_ruta">Bloqueo vial</option><option value="cancelacion">Cancelación de cirugía</option></select></label></div>
-          <div class="filter-row stack-mobile"><label>Clínica<select id="inc-hospital"><option value="TODOS">Todos</option><option value="H1">Clínica Ricardo Palma</option><option value="H2">Clínica Javier Prado</option><option value="H3">Clínica Limatambo</option></select></label><label>Fecha afectada<input id="inc-fecha" type="date"></label></div>
-          <div class="filter-row stack-mobile"><label class="field-wide">Recurso, jornada o cirugía afectada<select id="inc-objetivo"><option value="">Cargando opciones…</option></select></label></div>
+          <div class="filter-row stack-mobile" id="inc-filtros"><label>Clínica<select id="inc-hospital"><option value="TODOS">Todos</option><option value="H1">Clínica Ricardo Palma</option><option value="H2">Clínica Javier Prado</option><option value="H3">Clínica Limatambo</option></select></label><label>Fecha afectada<input id="inc-fecha" type="date"></label></div>
+          <div class="filter-row stack-mobile" id="inc-objetivo-contenedor"><label class="field-wide">Recurso, jornada o cirugía afectada<select id="inc-objetivo"><option value="">Cargando opciones…</option></select></label></div>
+          <div id="selector-vial" class="road-picker hidden">
+            <label for="inc-calle">1. Calle afectada</label>
+            <select id="inc-calle"><option value="">Selecciona una calle</option></select>
+            <label for="inc-buscar-tramo">2. Busca el tramo específico</label>
+            <input id="inc-buscar-tramo" type="search" placeholder="Buscar cruce o referencia…" autocomplete="off">
+            <p id="inc-cantidad-tramos" class="micro-note">Selecciona una calle para ver sus tramos.</p>
+            <div id="inc-lista-tramos" class="road-segments" role="group" aria-label="Tramos disponibles"></div>
+            <p id="inc-tramo-confirmado" class="road-selection-hint" role="status" aria-live="polite">Elige un tramo para destacarlo en el mapa.</p>
+          </div>
           <div class="action-row"><button id="paso-evento" class="button primary" type="button">Registrar incidencia</button></div>
           <p class="micro-note" id="mensaje-evento" role="status" aria-live="polite"></p>
           <p class="sr-only" id="contador-eventos" aria-live="polite"></p>
@@ -62,13 +77,13 @@
         </article>
         <article class="surface dashboard-card" id="panel-rutas">
           <div class="surface-head"><div class="step-number">B</div><div><h2>Rutas entre clínicas</h2></div></div>
-          <svg id="grafo" class="network-svg" viewBox="0 0 600 340" role="img" aria-label="Grafo vial experimental, todavía sin calles reales"></svg>
-          <p class="micro-note">Las rutas y los tiempos de traslado son simulados por ahora.</p>
+          <div id="grafo" class="network-map" role="img" aria-label="Mapa de calles y rutas dirigidas de San Isidro entre clínicas"></div>
+          <p class="micro-note">Calles de OpenStreetMap. Los tiempos son estimados, sin información del tráfico en tiempo real.</p>
           <div class="legend"><span><i class="route-line"></i> Vía habilitada</span><span><i class="route-line broken"></i> Vía bloqueada</span></div>
           <div class="filter-row route-controls"><label>Origen<select id="origen"><option value="H1">Clínica Ricardo Palma</option><option value="H2">Clínica Javier Prado</option><option value="H3">Clínica Limatambo</option></select></label><label>Destino<select id="destino"><option value="H3">Clínica Limatambo</option><option value="H2">Clínica Javier Prado</option><option value="H1">Clínica Ricardo Palma</option></select></label><button id="calcular-ruta" class="button secondary" type="button">Calcular ruta</button></div>
           <p id="resultado-ruta" class="notice neutral-notice">Selecciona dos clínicas diferentes.</p>
           <div class="list-head"><h3>Traslados entre clínicas</h3></div>
-          <p class="micro-note">Los traslados son simulados. Antes de confirmar, el sistema comprueba nuevamente que haya disponibilidad.</p>
+          <p class="micro-note">Antes de confirmar un traslado, el sistema verifica nuevamente la disponibilidad.</p>
           <div class="action-row"><button class="button secondary" type="button" id="btn-generar-derivaciones">Buscar alternativas</button></div>
           <p class="micro-note" id="mensaje-derivaciones" role="status" aria-live="polite"></p>
           <div class="table-scroll"><table class="data-table"><thead><tr><th>Caso</th><th>Destino</th><th>Traslado</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="tabla-propuestas"><tr><td colspan="5">Sin propuestas.</td></tr></tbody></table></div>
@@ -109,10 +124,11 @@
          </aside>
       </div>
     </section>
-    <footer class="app-disclaimer" aria-label="Equipo de desarrollo"><strong>Grupo 5</strong><span>Nicolás Eduardo Castro Solorza · Sebastián Josué Cochachi Chagua · César Fernando Marín Cueva</span></footer>
+    <footer class="app-disclaimer" aria-label="Equipo de desarrollo"><strong>Grupo 5</strong><span>Nicolás Eduardo Castro Solorza · Sebastián Josué Cochachi Chagua · César Fernando Marín Cueva</span><small>Prototipo académico con datos de demostración. Rutas estimadas a partir de OpenStreetMap.</small></footer>
  </main>
  <div id="toast" class="toast hidden" role="status"></div>
 </div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="{{ url_for('static',filename='app.js') }}"></script>
 </body>
 </html>

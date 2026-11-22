@@ -405,3 +405,24 @@ button:disabled{cursor:not-allowed;opacity:.58}
 .quirored-dialogo-botones button{min-width:110px;}
 .quirored-dialogo :focus-visible{outline:3px solid #5485b0;outline-offset:2px;}
 @media(max-width:460px){.quirored-dialogo-form{padding:20px}.quirored-dialogo-botones button{flex:1;min-width:0}}
+
+/* Red vial real — mapa cartográfico */
+.network-map{height:390px;min-height:300px;width:100%;border:1px solid var(--border-soft);border-radius:10px;background:#f5f8fb;z-index:0}
+.network-map .leaflet-container{font-family:inherit}
+@media (max-width:600px){.network-map{height:300px}}
+
+/* Selector vial por calle y tramo: conserva las opciones dentro del panel. */
+.road-picker{display:flex;flex-direction:column;gap:8px;width:100%;min-width:0;margin-top:13px}
+.road-picker>label{font-size:12px;font-weight:700;color:var(--muted)}
+.road-picker>select,.road-picker>input{box-sizing:border-box;width:100%;max-width:100%;min-width:0;height:41px;padding:9px 11px;border:1px solid var(--border);border-radius:6px;background:#fff;color:var(--ink);font-size:13px}
+.road-picker>select:focus-visible,.road-picker>input:focus-visible{outline:2px solid #5485b0;outline-offset:1px}
+.road-picker .micro-note{margin:0}
+.road-segments{box-sizing:border-box;width:100%;max-height:244px;overflow-y:auto;overflow-x:hidden;border:1px solid var(--border);border-radius:8px;background:#fff}
+.road-segment-item{display:block;box-sizing:border-box;width:100%;border:0;border-bottom:1px solid var(--border-soft);padding:11px 13px;background:#fff;text-align:left;color:var(--ink);font-size:12px;line-height:1.45;white-space:normal;overflow-wrap:anywhere;cursor:pointer}
+.road-segment-item:last-child{border-bottom:0}
+.road-segment-item:hover{background:#f6f8fb}
+.road-segment-item[aria-pressed="true"]{background:#fff1dc;box-shadow:inset 3px 0 #d58a0d;font-weight:700}
+.road-segment-item:focus-visible{outline:2px solid #5485b0;outline-offset:-3px}
+.road-empty{padding:13px}
+.road-selection-hint{margin:0;padding:10px 12px;border:1px solid var(--border-soft);border-radius:6px;background:#f9fafb;color:var(--muted);font-size:11px;line-height:1.55;overflow-wrap:anywhere}
+#panel-eventos{min-width:0}
