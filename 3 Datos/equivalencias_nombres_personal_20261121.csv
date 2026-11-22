@@ -1,0 +1,48 @@
+﻿ID_PERSONAL;HOSPITAL_ID;ROL;ESPECIALIDAD;NOMBRE_ACTUAL;NOMBRE_PROPUESTO
+H2_MED_OBS_01;H2;CIRUJANO;GINECO_OBSTETRICIA;H2 - Cirujano simulado 1;Dra. Patricia Cárdenas Rojas
+H2_MED_OBS_02;H2;CIRUJANO;GINECO_OBSTETRICIA;H2 - Cirujano simulado 2;Dr. Álvaro Espinoza Silva
+H2_MED_OBS_03;H2;CIRUJANO;GINECO_OBSTETRICIA;H2 - Cirujano simulado 3;Dra. Rocío Fernández Salinas
+H2_MED_OBS_04;H2;CIRUJANO;GINECO_OBSTETRICIA;H2 - Cirujano simulado 4;Dr. Bruno Arce Medina
+H2_MED_ONC_01;H2;CIRUJANO;CIRUGIA_ONCOLOGICA;H2 - Cirujano simulado 1;Dra. Gabriela Quintana López
+H2_MED_ONC_02;H2;CIRUJANO;CIRUGIA_ONCOLOGICA;H2 - Cirujano simulado 2;Dr. Héctor Villanueva Castro
+H2_ANE_01;H2;ANESTESIOLOGO;ANESTESIOLOGIA;H2 - Anestesiologo simulado 1;Dra. Milagros Acosta Vega
+H2_ANE_02;H2;ANESTESIOLOGO;ANESTESIOLOGIA;H2 - Anestesiologo simulado 2;Dr. Félix Lozano Ponce
+H2_ANE_03;H2;ANESTESIOLOGO;ANESTESIOLOGIA;H2 - Anestesiologo simulado 3;Dra. Ana Belén Gutiérrez Paz
+H2_ANE_04;H2;ANESTESIOLOGO;ANESTESIOLOGIA;H2 - Anestesiologo simulado 4;Dr. Ernesto Rivas Peralta
+H2_ENF_INST_01;H2;INSTRUMENTISTA;ENFERMERIA_QUIRURGICA;H2 - Instrumentista simulado 1;Claudia Paredes Núñez
+H2_ENF_INST_02;H2;INSTRUMENTISTA;ENFERMERIA_QUIRURGICA;H2 - Instrumentista simulado 2;Verónica Sáenz Romero
+H2_ENF_INST_03;H2;INSTRUMENTISTA;ENFERMERIA_QUIRURGICA;H2 - Instrumentista simulado 3;Ruth Morales Quiroz
+H2_ENF_INST_04;H2;INSTRUMENTISTA;ENFERMERIA_QUIRURGICA;H2 - Instrumentista simulado 4;Daniela Peralta Gamarra
+H2_ENF_CIRC_01;H2;CIRCULANTE;ENFERMERIA_QUIRURGICA;H2 - Circulante simulado 1;Paola Medina Salazar
+H2_ENF_CIRC_02;H2;CIRCULANTE;ENFERMERIA_QUIRURGICA;H2 - Circulante simulado 2;Karina Silva Escobedo
+H2_ENF_CIRC_03;H2;CIRCULANTE;ENFERMERIA_QUIRURGICA;H2 - Circulante simulado 3;Maribel Delgado Flores
+H2_ENF_CIRC_04;H2;CIRCULANTE;ENFERMERIA_QUIRURGICA;H2 - Circulante simulado 4;Elisa Cáceres Torres
+H2_LIM_01;H2;LIMPIEZA;LIMPIEZA_QUIRURGICA;H2 - Limpieza simulado 1;Equipo de Limpieza Javier Prado A
+H2_LIM_02;H2;LIMPIEZA;LIMPIEZA_QUIRURGICA;H2 - Limpieza simulado 2;Equipo de Limpieza Javier Prado B
+H2_NEO_01;H2;NEONATOLOGO;NEONATOLOGIA;H2 - Neonatologo simulado 1;Dra. Teresa Calderón León
+H2_NEO_02;H2;NEONATOLOGO;NEONATOLOGIA;H2 - Neonatologo simulado 2;Dr. Ricardo Estévez Palacios
+H2_INT_01;H2;INTENSIVISTA;CUIDADOS_INTENSIVOS;H2 - Intensivista simulado 1;Dra. Vanessa Huamán Caballero
+H2_INT_02;H2;INTENSIVISTA;CUIDADOS_INTENSIVOS;H2 - Intensivista simulado 2;Dr. Óscar Vera Lazo
+H3_MED_OBS_01;H3;CIRUJANO;GINECO_OBSTETRICIA;H3 - Cirujano simulado 1;Dra. Natalia Cordero Linares
+H3_MED_OBS_02;H3;CIRUJANO;GINECO_OBSTETRICIA;H3 - Cirujano simulado 2;Dr. Samuel Medina Yupanqui
+H3_MED_ONC_01;H3;CIRUJANO;CIRUGIA_ONCOLOGICA;H3 - Cirujano simulado 1;Dr. Felipe Carrillo Bustamante
+H3_MED_ONC_02;H3;CIRUJANO;CIRUGIA_ONCOLOGICA;H3 - Cirujano simulado 2;Dra. Irene Palacios Muñoz
+H3_MED_ONC_03;H3;CIRUJANO;CIRUGIA_ONCOLOGICA;H3 - Cirujano simulado 3;Dr. Alonso Rojas Aranda
+H3_MED_ONC_04;H3;CIRUJANO;CIRUGIA_ONCOLOGICA;H3 - Cirujano simulado 4;Dra. Mónica Valdivia Salcedo
+H3_ANE_01;H3;ANESTESIOLOGO;ANESTESIOLOGIA;H3 - Anestesiologo simulado 1;Dr. Jorge Benavides Paredes
+H3_ANE_02;H3;ANESTESIOLOGO;ANESTESIOLOGIA;H3 - Anestesiologo simulado 2;Dra. Diana Reyes Robles
+H3_ANE_03;H3;ANESTESIOLOGO;ANESTESIOLOGIA;H3 - Anestesiologo simulado 3;Dr. Gustavo Pineda León
+H3_ANE_04;H3;ANESTESIOLOGO;ANESTESIOLOGIA;H3 - Anestesiologo simulado 4;Dra. Carolina Navarro Farfán
+H3_ENF_INST_01;H3;INSTRUMENTISTA;ENFERMERIA_QUIRURGICA;H3 - Instrumentista simulado 1;Lucero Barrios Flores
+H3_ENF_INST_02;H3;INSTRUMENTISTA;ENFERMERIA_QUIRURGICA;H3 - Instrumentista simulado 2;Jimena Campos Quispe
+H3_ENF_INST_03;H3;INSTRUMENTISTA;ENFERMERIA_QUIRURGICA;H3 - Instrumentista simulado 3;Milena Tapia Vargas
+H3_ENF_INST_04;H3;INSTRUMENTISTA;ENFERMERIA_QUIRURGICA;H3 - Instrumentista simulado 4;Bárbara Aguilar Solís
+H3_ENF_CIRC_01;H3;CIRCULANTE;ENFERMERIA_QUIRURGICA;H3 - Circulante simulado 1;Adriana Huertas Cueva
+H3_ENF_CIRC_02;H3;CIRCULANTE;ENFERMERIA_QUIRURGICA;H3 - Circulante simulado 2;Pilar Gálvez Trujillo
+H3_ENF_CIRC_03;H3;CIRCULANTE;ENFERMERIA_QUIRURGICA;H3 - Circulante simulado 3;Beatriz Méndez López
+H3_ENF_CIRC_04;H3;CIRCULANTE;ENFERMERIA_QUIRURGICA;H3 - Circulante simulado 4;Nuria Ortega Ramírez
+H3_LIM_01;H3;LIMPIEZA;LIMPIEZA_QUIRURGICA;H3 - Limpieza simulado 1;Equipo de Limpieza Limatambo A
+H3_LIM_02;H3;LIMPIEZA;LIMPIEZA_QUIRURGICA;H3 - Limpieza simulado 2;Equipo de Limpieza Limatambo B
+H3_NEO_01;H3;NEONATOLOGO;NEONATOLOGIA;H3 - Neonatologo simulado 1;Dra. Isabel Ponce Huertas
+H3_INT_01;H3;INTENSIVISTA;CUIDADOS_INTENSIVOS;H3 - Intensivista simulado 1;Dr. César Zambrano Perea
+H3_INT_02;H3;INTENSIVISTA;CUIDADOS_INTENSIVOS;H3 - Intensivista simulado 2;Dra. Lourdes Cáceres Salazar

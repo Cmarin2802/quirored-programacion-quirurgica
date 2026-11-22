@@ -152,7 +152,7 @@ def planificar(base: Path, origen: str, max_evaluar: int, max_derivaciones: int,
             'INICIO': seleccionado['INICIO'],
             'SALA_ID': seleccionado['SALA_ID'],
             'RUTA_NODOS': ' -> '.join(ruta['camino']),
-            'TIEMPO_TRASLADO_MIN_SIM': int(tiempo),
+            'TIEMPO_TRASLADO_MIN_SIM': round(float(tiempo), 2),
             'PREPARACION_MIN_SIM': preparacion_min,
             'HORA_MINIMA_ADMISIBLE_SIM': llegada.isoformat(timespec='minutes'),
             'ESTADO_DERIVACION': ('APROBADA_SOLO_EN_SIMULACION' if autorizar_simulacion else

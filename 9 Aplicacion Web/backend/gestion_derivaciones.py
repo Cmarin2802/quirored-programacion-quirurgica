@@ -62,7 +62,7 @@ def generar_propuestas(base: Path, max_evaluar: int = 20, max_derivaciones: int 
                 copiar_insumos(carpeta, salida_tmp, data, grafo, bloqueos, canceladas,
                                programadas, pendientes)
                 _, salida = planificar(salida_tmp, 'simulacion', max_evaluar,
-                                     max_derivaciones, dias_busqueda=7, paso_min=60,
+                                     max_derivaciones, dias_busqueda=7, paso_min=30,
                                      preparacion_min=90,
                                      bloqueadas=config(con, 'bloqueos_rutas', []),
                                      autorizar_simulacion=False)

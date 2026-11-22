@@ -1,0 +1,22 @@
+# Solo los componentes que necesita la aplicación desplegada.
+/*
+!/Dockerfile
+!/9 Aplicacion Web/
+!/geo/
+!/benchmarks/
+
+# No incluir información local o temporal.
+**/__pycache__/
+**/*.pyc
+**/.venv/
+**/venv/
+**/.env
+**/.env.*
+**/*.backup
+**/*.dump
+**/*.sqlite3
+**/*.db
+**/*.log
+benchmarks/PRUEBA_ALGORITMOS_100.csv
+benchmarks/resultados_locales/
+geo/descargas_temporales/

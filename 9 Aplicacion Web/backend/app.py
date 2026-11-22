@@ -1,6 +1,7 @@
 """API Flask del sistema de coordinación hospitalaria."""
 from __future__ import annotations
 import os
+from collections import Counter
 from datetime import date
 from catalogo_sedes import catalogo_publico, nombre_sede
 from pathlib import Path
@@ -18,6 +19,8 @@ import sys
 sys.path.insert(0,str(BASE/'motores'))
 app=Flask(__name__,template_folder=str(BASE.parent/'frontend'),static_folder=str(BASE.parent/'frontend'/'static'),static_url_path='/static')
 app.config.update(JSON_AS_ASCII=False)
+from area_tecnica import registrar_area_tecnica
+registrar_area_tecnica(app, BASE)
 
 @app.get('/')
 def inicio():
@@ -117,10 +120,31 @@ def opciones_incidencias():
     try:
         if tipo == 'bloqueo_ruta':
             bloqueadas = set(config(con, 'bloqueos_rutas', []))
-            opciones = [{'recurso_id': c['CONEXION_ID'], 'hospital': '', 'fecha': '',
-                         'caso_id': '', 'descripcion': f"{c['ORIGEN_NODO']} → {c['DESTINO_NODO']}"}
-                        for c in cargar_fuente(con, 'conexiones_red.csv')
-                        if c['ESTADO'] == 'HABILITADA' and c['CONEXION_ID'] not in bloqueadas]
+            nodos = {h: nombre_sede(h) for h in ('H1', 'H2', 'H3')}
+            nodos.update({p['NODO_VIAL_ID']: p['NOMBRE']
+                          for p in cargar_fuente(con, 'puntos_viales_red.csv')})
+            opciones = []
+            for tramo in cargar_fuente(con, 'conexiones_red.csv'):
+                if tramo['ESTADO'] != 'HABILITADA' or tramo['CONEXION_ID'] in bloqueadas:
+                    continue
+                calle = (tramo.get('NOMBRE_VIA') or '').strip()
+                if not calle or 'sin nombre' in calle.lower():
+                    calle = 'Conexión vial sin nombre registrado'
+                origen = nodos.get(tramo['ORIGEN_NODO'], 'Intersección sin referencia')
+                destino = nodos.get(tramo['DESTINO_NODO'], 'Intersección sin referencia')
+                descripcion = f'{calle} · desde {origen} hacia {destino}'
+                opciones.append({'recurso_id': tramo['CONEXION_ID'], 'hospital': '',
+                                 'fecha': '', 'caso_id': '', 'descripcion': descripcion,
+                                 'calle': calle, 'origen_nombre': origen, 'destino_nombre': destino,
+                                 'distancia_m': round(float(tramo.get('DISTANCIA_M') or 0), 1)})
+            repetidas = Counter(x['descripcion'] for x in opciones)
+            secciones = Counter()
+            for opcion in opciones:
+                descripcion = opcion['descripcion']
+                if repetidas[descripcion] > 1:
+                    secciones[descripcion] += 1
+                    opcion['descripcion'] += f' · sección {secciones[descripcion]}/{repetidas[descripcion]}'
+            opciones.sort(key=lambda x: x['descripcion'].casefold())
         else:
             campo = TIPOS_INCIDENCIAS[tipo]
             vistas = set()
@@ -212,34 +236,61 @@ def propuestas():
 
 @app.get('/api/red')
 def red():
-    con=conectar(BASE)
+    from red_operativa import coordenadas_sedes, habilitada
+    con = conectar(BASE)
     try:
-        if not instalada(con):return jsonify(nodos=[],conexiones=[])
-        hospital=cargar_fuente(con,'hospitales_red.csv')
-        vias=cargar_fuente(con,'puntos_viales_red.csv')
-        bloqueadas=set(config(con,'bloqueos_rutas',[]))
-        conexiones=cargar_fuente(con,'conexiones_red.csv')
-        return jsonify(nodos=[{'id':h['HOSPITAL_ID'],'nombre':nombre_sede(h['HOSPITAL_ID']),'tipo':'HOSPITAL'} for h in hospital]
-            + [{'id':v['NODO_VIAL_ID'],'nombre':v['NOMBRE'],'tipo':'INTERSECCION'} for v in vias],
-            conexiones=[{'id':x['CONEXION_ID'],'desde':x['ORIGEN_NODO'],'hasta':x['DESTINO_NODO'],
-                'peso_min':int(x['TIEMPO_MIN_SIM']),
-                'bloqueada':x['CONEXION_ID'] in bloqueadas or x['ESTADO']!='HABILITADA'} for x in conexiones])
-    finally:con.close()
+        if not instalada(con):
+            return jsonify(nodos=[], conexiones=[])
+        sedes = cargar_fuente(con, 'hospitales_red.csv')
+        intersecciones = cargar_fuente(con, 'puntos_viales_red.csv')
+        tramos = cargar_fuente(con, 'conexiones_red.csv')
+        bloqueos = set(config(con, 'bloqueos_rutas', []))
+        geo_sedes = coordenadas_sedes()
+        nodos = []
+        for sede in sedes:
+            hid = sede['HOSPITAL_ID']
+            item = {'id': hid, 'nombre': nombre_sede(hid), 'tipo': 'HOSPITAL'}
+            if hid in geo_sedes:
+                item.update(lat=float(geo_sedes[hid]['LATITUD']), lon=float(geo_sedes[hid]['LONGITUD']))
+            nodos.append(item)
+        for punto in intersecciones:
+            item = {'id': punto['NODO_VIAL_ID'], 'nombre': punto['NOMBRE'], 'tipo': 'INTERSECCION'}
+            if punto.get('LATITUD') and punto.get('LONGITUD'):
+                item.update(lat=float(punto['LATITUD']), lon=float(punto['LONGITUD']))
+            nodos.append(item)
+        conexiones = [{
+            'id': tramo['CONEXION_ID'], 'desde': tramo['ORIGEN_NODO'],
+            'hasta': tramo['DESTINO_NODO'],
+            'peso_min': round(float(tramo['TIEMPO_MIN_SIM']), 3),
+            'via': tramo.get('NOMBRE_VIA', 'Vía sin nombre'),
+            'bloqueada': tramo['CONEXION_ID'] in bloqueos or tramo['ESTADO'] != 'HABILITADA',
+        } for tramo in tramos]
+        return jsonify(nodos=nodos, conexiones=conexiones, red_real=habilitada())
+    finally:
+        con.close()
+
 
 @app.get('/api/ruta')
 def ruta():
-    origen=request.args.get('origen','H1');destino=request.args.get('destino','H3')
-    if origen not in ('H1','H2','H3') or destino not in ('H1','H2','H3') or origen==destino:
-        return jsonify(error='Origen y destino deben ser hospitales diferentes'),400
-    con=conectar(BASE)
+    origen = request.args.get('origen', 'H1')
+    destino = request.args.get('destino', 'H3')
+    if origen not in ('H1', 'H2', 'H3') or destino not in ('H1', 'H2', 'H3') or origen == destino:
+        return jsonify(error='Selecciona dos clínicas diferentes'), 400
+    con = conectar(BASE)
     try:
-        if not instalada(con):return jsonify(error='Sin inicializar'),409
-        filas=cargar_fuente(con,'conexiones_red.csv')
-        bloqueadas=config(con,'bloqueos_rutas',[])
-    finally:con.close()
-    from red_vial import construir_arcos,bellman_ford
-    resultado=bellman_ford(construir_arcos(filas,bloqueadas),origen,destino)
-    return jsonify(resultado or {'origen':origen,'destino':destino,'sin_ruta':True})
+        if not instalada(con):
+            return jsonify(error='No se han cargado los datos'), 409
+        tramos = cargar_fuente(con, 'conexiones_red.csv')
+        bloqueos = config(con, 'bloqueos_rutas', [])
+    finally:
+        con.close()
+    from red_vial import construir_arcos, bellman_ford
+    from red_operativa import enriquecer_ruta
+    resultado = bellman_ford(construir_arcos(tramos, bloqueos), origen, destino)
+    return jsonify(enriquecer_ruta(resultado, tramos) or {
+        'origen': origen, 'destino': destino, 'sin_ruta': True,
+    })
+
 
 @app.post('/api/simulacion/paso')
 def avanzar():

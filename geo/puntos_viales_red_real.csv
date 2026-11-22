@@ -1,0 +1,134 @@
+NODO_VIAL_ID,NOMBRE,OSM_NODE_ID,LATITUD,LONGITUD
+VIA_REAL_001,Avenida Juan de Arona con Calle Las Begonias,262909424,-12.096408,-77.026117
+VIA_REAL_002,Avenida Javier Prado Este con Calle Las Camelias,262909438,-12.091788,-77.029423
+VIA_REAL_003,Avenida Miguel Seminario con Avenida Paseo de la República,262909989,-12.094775,-77.023775
+VIA_REAL_004,Avenida Ricardo Rivera Navarrete con Calle Coronel Andrés Reyes,262909996,-12.093986,-77.026662
+VIA_REAL_005,Avenida Miguel Seminario con Avenida República de Panamá,262909998,-12.094686,-77.021568
+VIA_REAL_006,Calle Amador Merino Reyna con Calle Las Begonias,262910003,-12.092115,-77.024297
+VIA_REAL_007,Calle Amador Merino Reyna con Calle Francisco Masías,262910004,-12.092295,-77.025747
+VIA_REAL_008,Avenida Ricardo Rivera Navarrete con Calle Amador Merino Reyna,262910005,-12.092468,-77.026886
+VIA_REAL_009,Calle Deán Valdivia con Calle Las Orquídeas,262910018,-12.093366,-77.027907
+VIA_REAL_010,Avenida Enrique Canaval y Moreyra con Calle German Schreiber,262910044,-12.096855,-77.023928
+VIA_REAL_011,Avenida Enrique Canaval y Moreyra con Mariano Santos Mateo,262910045,-12.096954,-77.023225
+VIA_REAL_012,Avenida Enrique Canaval y Moreyra con Calle Armando Blondet,262910046,-12.09704,-77.022553
+VIA_REAL_013,Avenida Dionisio Derteano con Avenida Enrique Canaval y Moreyra,262910047,-12.097148,-77.021819
+VIA_REAL_014,Avenida Dionisio Derteano con Avenida Enrique Canaval y Moreyra,262910048,-12.097177,-77.021596
+VIA_REAL_015,Avenida Enrique Canaval y Moreyra con Avenida República de Panamá,262910050,-12.097365,-77.020185
+VIA_REAL_016,Avenida Enrique Canaval y Moreyra con Avenida Pablo Carriquirry Maurer,262910053,-12.09761,-77.01842
+VIA_REAL_017,Avenida Enrique Canaval y Moreyra con Avenida Pablo Carriquirry Maurer,262910054,-12.097634,-77.018254
+VIA_REAL_018,Avenida Juan de Arona con Avenida Juan de Arona / Avenida Enrique Canaval y Moreyra,262910055,-12.096685,-77.025332
+VIA_REAL_019,Avenida Ricardo Rivera Navarrete con Calle Deán Valdivia,262910065,-12.093196,-77.02677
+VIA_REAL_020,Calle Deán Valdivia con Calle Francisco Masías,262910070,-12.093043,-77.025648
+VIA_REAL_021,Calle Deán Valdivia con Calle El Parque,262910073,-12.093089,-77.025071
+VIA_REAL_022,Calle Deán Valdivia con Calle Las Begonias,262910074,-12.093256,-77.024668
+VIA_REAL_023,Calle Las Begonias con Calle Los Nardos,262910077,-12.09516,-77.025543
+VIA_REAL_024,Calle El Parque con Calle Los Nardos,262910107,-12.094994,-77.025967
+VIA_REAL_025,Avenida Enrique Canaval y Moreyra con Avenida Pablo Carriquirry Maurer,263104598,-12.097789,-77.018278
+VIA_REAL_026,Avenida Enrique Canaval y Moreyra con Avenida Pablo Carriquirry Maurer,263104599,-12.09777,-77.018434
+VIA_REAL_027,Avenida Enrique Canaval y Moreyra,263104603,-12.09738,-77.021188
+VIA_REAL_028,Avenida Dionisio Derteano con Avenida Enrique Canaval y Moreyra,263104604,-12.09729,-77.021835
+VIA_REAL_029,Avenida Juan de Arona / Avenida Enrique Canaval y Moreyra con Avenida Paseo de la República,263104607,-12.096891,-77.024761
+VIA_REAL_030,Vía Expresa Luis Fernán Bedoya Reyes,263105460,-12.092153,-77.022794
+VIA_REAL_031,Avenida Javier Prado Este,263106228,-12.090612,-77.020966
+VIA_REAL_032,Vía Expresa Luis Fernán Bedoya Reyes,263106951,-12.09023,-77.022829
+VIA_REAL_033,Avenida Javier Prado Este,263108203,-12.091064,-77.025262
+VIA_REAL_034,Calle Francisco Masías con Calle Los Geranios,263116139,-12.090283,-77.026009
+VIA_REAL_035,Avenida Ricardo Rivera Navarrete con Calle Los Geranios,263117562,-12.090419,-77.027177
+VIA_REAL_036,Calle Las Begonias con Calle Los Geranios,263117563,-12.090116,-77.024781
+VIA_REAL_037,Avenida Javier Prado Este con Calle Las Begonias,263117941,-12.090898,-77.024467
+VIA_REAL_038,Avenida Javier Prado Este,263117943,-12.090793,-77.023734
+VIA_REAL_039,Avenida República de Panamá con Calle Las Castañitas,263933777,-12.093093,-77.022206
+VIA_REAL_040,Avenida República de Panamá con Calle Las Castañitas,263933778,-12.09304,-77.021952
+VIA_REAL_041,Avenida Pablo Carriquirry / Avenida Pablo Carriquirry Maurer con Avenida Pablo Carriquirry Maurer,263933784,-12.093339,-77.019404
+VIA_REAL_042,Avenida Pablo Carriquirry Maurer con Avenida del Parque Norte,316625302,-12.092474,-77.018784
+VIA_REAL_043,Avenida Pablo Carriquirry / Avenida Pablo Carriquirry Maurer con Avenida Pablo Carriquirry Maurer,316625303,-12.092555,-77.019136
+VIA_REAL_044,Avenida Pablo Carriquirry Maurer con Calle 17,316625581,-12.094952,-77.018885
+VIA_REAL_045,Avenida Pablo Carriquirry Maurer con Avenida del Parque Norte,316625730,-12.093231,-77.018671
+VIA_REAL_046,Vía Expresa Luis Fernán Bedoya Reyes,316626660,-12.091278,-77.022654
+VIA_REAL_047,Avenida República de Panamá,387411592,-12.093611,-77.022002
+VIA_REAL_048,Calle Las Oropéndolas,419482924,-12.098557,-77.017765
+VIA_REAL_049,Avenida Pablo Carriquirry Maurer con Calle Las Oropéndolas,419482939,-12.098483,-77.01836
+VIA_REAL_050,Avenida Enrique Canaval y Moreyra,419482948,-12.097725,-77.017539
+VIA_REAL_051,Avenida Enrique Canaval y Moreyra,419482949,-12.097867,-77.017553
+VIA_REAL_052,Avenida Miguel Seminario con Calle German Schreiber,475735031,-12.094836,-77.023044
+VIA_REAL_053,Avenida Miguel Seminario con Calle Armando Blondet,475735036,-12.094863,-77.022384
+VIA_REAL_054,Calle German Schreiber con Calle Micaela Bastidas,475735053,-12.095434,-77.023316
+VIA_REAL_055,Calle Armando Blondet con Calle Micaela Bastidas,475735063,-12.095539,-77.022445
+VIA_REAL_056,Calle Micaela Bastidas con Mariano Santos Mateo,475735127,-12.09549,-77.022887
+VIA_REAL_057,Avenida Enrique Canaval y Moreyra con Avenida Juan de Arona / Avenida Enrique Canaval y Moreyra,475735682,-12.096754,-77.024698
+VIA_REAL_058,Avenida República de Panamá,475735708,-12.094154,-77.021918
+VIA_REAL_059,Avenida República de Panamá con Calle Las Tordillas,475736371,-12.095136,-77.021101
+VIA_REAL_060,Avenida Pablo Carriquirry Maurer con Calle Los Ruiseñores Oeste,475736384,-12.096871,-77.018371
+VIA_REAL_061,Calle Los Anades con Calle Los Ruiseñores Oeste,475736470,-12.09681,-77.018935
+VIA_REAL_062,Calle Las Tordillas con Calle Los Ruiseñores Oeste,475736478,-12.094861,-77.0204
+VIA_REAL_063,Calle Las Tordillas con Calle Los Anades,475736492,-12.094636,-77.019826
+VIA_REAL_064,Avenida Pablo Carriquirry Maurer con Calle Las Tordillas,475736503,-12.094359,-77.019122
+VIA_REAL_065,Avenida Pablo Carriquirry Maurer con Calle Los Ruiseñores Este,475737980,-12.096896,-77.018174
+VIA_REAL_066,Calle Los Ruiseñores Este,475738166,-12.096932,-77.01752
+VIA_REAL_067,Calle 45 con Calle Doctor Ricardo J. Angulo R.,475745821,-12.090693,-77.015801
+VIA_REAL_068,Avenida Pablo Carriquirry Maurer con Calle Doctor Ricardo J. Angulo R.,475746092,-12.091126,-77.019098
+VIA_REAL_069,Calle Las Arañas con Calle Los Milanos,475746771,-12.091697,-77.018216
+VIA_REAL_070,Calle Doctor Ricardo J. Angulo R. con Calle Los Milanos,475746892,-12.091047,-77.018317
+VIA_REAL_071,Avenida Javier Prado Este,1273463215,-12.091219,-77.025316
+VIA_REAL_072,Avenida Pablo Carriquirry Maurer,1273472705,-12.092101,-77.018837
+VIA_REAL_073,Avenida Enrique Canaval y Moreyra con Avenida República de Panamá,1273506424,-12.09753,-77.020118
+VIA_REAL_074,Avenida Pablo Carriquirry Maurer con Calle Las Oropéndolas,1273765597,-12.098437,-77.018671
+VIA_REAL_075,Avenida República de Panamá con Calle Las Tordillas,1273859326,-12.09523,-77.021349
+VIA_REAL_076,Avenida Dionisio Derteano con Avenida Enrique Canaval y Moreyra,1273930039,-12.097319,-77.021616
+VIA_REAL_077,Avenida Juan de Arona / Avenida Enrique Canaval y Moreyra con Avenida Paseo de la República,1427717141,-12.0968,-77.025384
+VIA_REAL_078,Avenida República de Panamá,1759428218,-12.095944,-77.021215
+VIA_REAL_079,Avenida Dionisio Derteano,1759428219,-12.095965,-77.021461
+VIA_REAL_080,Avenida Dionisio Derteano con Avenida República de Panamá,1841059637,-12.095389,-77.021421
+VIA_REAL_081,Avenida Javier Prado Este,2086871506,-12.090611,-77.022466
+VIA_REAL_082,Avenida Javier Prado Este,2664407950,-12.090459,-77.019722
+VIA_REAL_083,Avenida Javier Prado Este con Calle 5,2807340550,-12.09028,-77.017664
+VIA_REAL_084,Calle 5 con Calle Las Arañas,2807340551,-12.091587,-77.017437
+VIA_REAL_085,Calle 5 con Calle Doctor Ricardo J. Angulo R.,2969455246,-12.090951,-77.017544
+VIA_REAL_086,Avenida Pablo Carriquirry Maurer con Zorzales,3261278058,-12.099899,-77.018428
+VIA_REAL_087,Avenida Miguel Seminario con Avenida República de Panamá,3384390176,-12.094819,-77.021654
+VIA_REAL_088,Avenida Javier Prado Este con Calle 45,3401128581,-12.090025,-77.01591
+VIA_REAL_089,Intersección OSM 3431739196,3431739196,-12.091055,-77.023741
+VIA_REAL_090,Avenida Miguel Seminario con Avenida República de Panamá,4015877792,-12.094572,-77.021329
+VIA_REAL_091,Avenida Pablo Carriquirry Maurer,4022477612,-12.090477,-77.019391
+VIA_REAL_092,Avenida Pablo Carriquirry Maurer con Calle Doctor Ricardo J. Angulo R.,4022477616,-12.091213,-77.019089
+VIA_REAL_093,Calle Doctor Ricardo J. Angulo R.,4022477621,-12.091138,-77.01887
+VIA_REAL_094,Avenida Pablo Carriquirry Maurer,4022477636,-12.090649,-77.019042
+VIA_REAL_095,Avenida Pablo Carriquirry Maurer,4022477640,-12.090663,-77.019166
+VIA_REAL_096,Calle Las Begonias,4033707685,-12.09369,-77.024867
+VIA_REAL_097,Avenida Miguel Seminario con Avenida Paseo de la República,4033711190,-12.094532,-77.024324
+VIA_REAL_098,Calle Coronel Andrés Reyes con Calle Las Begonias,4033711192,-12.094164,-77.025085
+VIA_REAL_099,Avenida Paseo de la República,4033715418,-12.094632,-77.024368
+VIA_REAL_100,Calle Coronel Andrés Reyes con Calle El Parque,4033849275,-12.093955,-77.025501
+VIA_REAL_101,Calle Amador Merino Reyna con Calle Las Camelias,4033901433,-12.092798,-77.029285
+VIA_REAL_102,Calle Amador Merino Reyna con Calle Las Orquídeas,4033901434,-12.092617,-77.028012
+VIA_REAL_103,Calle Coronel Andrés Reyes con Calle Las Orquídeas,4033901436,-12.094178,-77.027793
+VIA_REAL_104,Avenida Dionisio Derteano,4083410206,-12.095389,-77.021461
+VIA_REAL_105,Avenida Pablo Carriquirry Maurer con Calle 17,4083509602,-12.095055,-77.018842
+VIA_REAL_106,Avenida Enrique Canaval y Moreyra,4083545312,-12.097523,-77.020163
+VIA_REAL_107,Avenida Enrique Canaval y Moreyra,4083554886,-12.097473,-77.019401
+VIA_REAL_108,Avenida Enrique Canaval y Moreyra,4083557589,-12.09762,-77.019417
+VIA_REAL_109,Avenida Paseo de la República,4331495742,-12.094886,-77.023829
+VIA_REAL_110,Avenida República de Panamá,4331513722,-12.095903,-77.021093
+VIA_REAL_111,Avenida Javier Prado Este,4337438766,-12.090976,-77.023753
+VIA_REAL_112,Avenida República de Panamá con Calle Las Oropéndolas,4353230721,-12.098501,-77.019726
+VIA_REAL_113,Avenida Dionisio Derteano,4354704105,-12.097027,-77.021574
+VIA_REAL_114,Avenida Javier Prado Este,4357749544,-12.090769,-77.023559
+VIA_REAL_115,Avenida Javier Prado Este,4357749545,-12.090717,-77.023173
+VIA_REAL_116,Calle Los Anades,4464158255,-12.096644,-77.019003
+VIA_REAL_117,Calle Los Anades con Calle Los Ruiseñores Oeste,4464158259,-12.096778,-77.019158
+VIA_REAL_118,Avenida Paseo de la República,5873968060,-12.09618,-77.025099
+VIA_REAL_119,Avenida Pablo Carriquirry Maurer con Calle Doctor Ricardo J. Angulo R.,6321880520,-12.091195,-77.018951
+VIA_REAL_120,Avenida Javier Prado Este con Avenida Ricardo Rivera Navarrete,10005429553,-12.091465,-77.027033
+VIA_REAL_121,Avenida Pablo Carriquirry Maurer con Calle Doctor Ricardo J. Angulo R.,10024790172,-12.091108,-77.018965
+VIA_REAL_122,Avenida Javier Prado Este con Avenida Ricardo Rivera Navarrete,10083048866,-12.091311,-77.027058
+VIA_REAL_123,Avenida Javier Prado Este con Calle Francisco Masías,10313710284,-12.091298,-77.025891
+VIA_REAL_124,Avenida Javier Prado Este con Calle Francisco Masías,10313710286,-12.091154,-77.025911
+VIA_REAL_125,Avenida Pablo Carriquirry Maurer con Calle 17,10422223076,-12.094886,-77.018426
+VIA_REAL_126,Avenida Pablo Carriquirry Maurer con Calle 17,10422223078,-12.094978,-77.018413
+VIA_REAL_127,Calle 17,10422223080,-12.094913,-77.018284
+VIA_REAL_128,Avenida Javier Prado Este,10659710275,-12.090875,-77.022978
+VIA_REAL_129,Avenida Enrique Canaval y Moreyra con Avenida República de Panamá,11341792097,-12.097327,-77.020538
+VIA_REAL_130,Avenida Enrique Canaval y Moreyra con Avenida República de Panamá,11341792098,-12.097475,-77.02047
+VIA_REAL_131,Avenida Enrique Canaval y Moreyra con Avenida República de Panamá,11341792099,-12.097459,-77.020586
+VIA_REAL_132,Avenida Enrique Canaval y Moreyra con Avenida República de Panamá,11341792100,-12.097312,-77.02065
+VIA_REAL_133,Avenida Javier Prado Este con Calle Francisco Masías,14021887598,-12.091146,-77.025861

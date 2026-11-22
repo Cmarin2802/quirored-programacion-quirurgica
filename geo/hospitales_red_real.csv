@@ -1,0 +1,4 @@
+HOSPITAL_ID,NOMBRE,DIRECCION_REFERENCIA,OSM_NODE_ID,LATITUD,LONGITUD,ACCESO_VIAL
+H1,Clínica Ricardo Palma,"Av. Javier Prado Este 1066, San Isidro",471608639,-12.090415,-77.018723,Acceso vehicular sobre Av. Javier Prado Este (calzada este-oeste / auxiliar cuadra 10).
+H2,Clínica Javier Prado,"Av. Javier Prado Este 499, San Isidro",262909977,-12.091614,-77.028138,Acceso vehicular sobre Av. Javier Prado Este cuadra 4 / intersección Av. Petit Thouars.
+H3,Clínica Limatambo,"Av. República de Panamá 3606, San Isidro",3261278761,-12.10017,-77.019064,Acceso vehicular sobre Av. República de Panamá cuadra 36 (sentido norte-sur).
