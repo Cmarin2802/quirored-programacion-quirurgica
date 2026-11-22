@@ -132,7 +132,7 @@ def _simular(base, tipo, max_evaluar, max_derivaciones, parametros=None):
             temp_der=temp/'adaptador_derivaciones'
             copiar_insumos(temp,temp_der,datos,grafos,bloqueos,canceladas,programadas,pendientes)
             resumen_der,salida=planificar(temp_der,'simulacion',max_evaluar,max_derivaciones,
-                 dias_busqueda=7,paso_min=60,preparacion_min=90,
+                 dias_busqueda=7,paso_min=30,preparacion_min=90,
                  bloqueadas=sorted(vias),autorizar_simulacion=False)
             propuestas=leer(salida/'propuestas_derivacion.csv')
             if len(programadas)+len(pendientes)!=total:
